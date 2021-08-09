@@ -1,9 +1,12 @@
 package com.geradorDePessoas.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileManager {
     public static boolean fileCreator(String fileName){
@@ -12,7 +15,7 @@ public class FileManager {
             if(arquivo.createNewFile()){
                 System.out.println("|==>Arquivo criado com sucesso!");
                 System.out.println("|==>"+arquivo.getName());
-                System.out.println("|==>"+arquivo.getPath());
+                System.out.println("|==>"+arquivo.getAbsolutePath());
                 return false;
             }else{
                 System.out.println("|==>Arquivo já existente");
@@ -24,13 +27,13 @@ public class FileManager {
         }
         return false;
     }
+
     public static void fileWriter(String fileName, List<String> listNames){
         try{
             FileWriter arquivo = new FileWriter(fileName + ".txt");
-            if(fileCreator(fileName)){
-                arquivo.append(String.valueOf(listNames));
-            }else{
-                arquivo.write(String.valueOf(listNames));
+            for (String listName : listNames) {
+                arquivo.write(listName);
+                arquivo.write("\n");
             }
             arquivo.close();
         }catch (IOException e){
@@ -38,11 +41,19 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-    public List<String> fileReader(String fileName){
-        /*
-        TODO Implementar a capacidade de ler os nomes de um arquivo .txt
-         e passar para uma List<String>
-        */
-        return null;
+
+    public static List<String> fileReader(String fileName){
+        List<String> listNames = new ArrayList<>();
+        try{
+            File arquivo = new File(fileName + ".txt");
+            Scanner scan = new Scanner(arquivo);
+            while (scan.hasNextLine()){
+                listNames.add(scan.nextLine());
+            }
+        }catch (FileNotFoundException e){
+            System.out.println("Erro encontrado");
+            e.printStackTrace();
+        }
+        return listNames;
     }
 }

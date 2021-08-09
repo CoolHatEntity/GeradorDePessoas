@@ -1,30 +1,45 @@
 package com.geradorDePessoas.geradores;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import com.geradorDePessoas.util.FileManager;
+
+import java.util.*;
 
 public class GeradorNome {
-    private List<String> nome = new ArrayList<String>();
-    private List<String> sobrenome = new ArrayList<String>();
+    private List<String> nome;
+    private final List<String> sobrenome = new ArrayList<>();
+
+    public GeradorNome(){
+        if(getSobrenome().size() == 0){
+            addSobrenome(getTesteSobrenome());
+        }
+
+        nome = getList("Nomes");
+    }
 
     public String[] geraNome(){
         Random rand = new Random();
         int index = 0;
 
-        if(getNome().size() == 0){
-            addNome(getTesteNome());
-        }
-        if(getSobrenome().size() == 0){
-            addSobrenome(getTesteSobrenome());
-        }
-
         return new String[]{getNome().get(rand.nextInt(getNome().size())),
                                 getSobrenome().get(rand.nextInt(getSobrenome().size()))};
     }
-    public void addNome(String nameInput){
-        getNome().add(nameInput);
+    public void addEntry(String nameInput, int op){
+        Set<String> comp;
+        if(op == 1){comp = new HashSet<>(nome);
+        }else{comp = new HashSet<>(sobrenome);}
+
+        if(!comp.add(nameInput)){
+            System.out.println("==>Nome já existente");
+        }else{
+            if(op == 1){
+                nome.add(nameInput);
+                FileManager.fileWriter("Nomes", nome);
+            }else{
+                sobrenome.add(nameInput);
+                FileManager.fileWriter("Sobrenomes", sobrenome);
+            }
+        }
+
     }
     private void addNome(String[] nameInput){
         Collections.addAll(getNome(), nameInput);
@@ -47,7 +62,6 @@ public class GeradorNome {
                 "Nina",
                 "Henrique"};
     }
-
     private static String[] getTesteNome() {
         return new String[]{"Henrique",
                 "Luiz",
@@ -59,6 +73,14 @@ public class GeradorNome {
                 "Fernanda",
                 "Lavínia",
                 "Valentina"};
+    }
+
+    public List<String> getList(String fileName){
+        List<String> returnList;
+
+        returnList = FileManager.fileReader(fileName);
+
+        return returnList;
     }
 
     public List<String> getNome() {

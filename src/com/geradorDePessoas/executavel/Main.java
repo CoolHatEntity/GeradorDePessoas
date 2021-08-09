@@ -2,11 +2,13 @@ package com.geradorDePessoas.executavel;
 
 import com.geradorDePessoas.geradores.GeradorCPF;
 import com.geradorDePessoas.geradores.GeradorNome;
-import com.geradorDePessoas.util.FileManager;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 	// write your code here
         GeradorNome gera =  new GeradorNome();
         String[] nome;
@@ -15,11 +17,14 @@ public class Main {
             nome = gera.geraNome();
             System.out.println(nome[0] + " " + nome[1]);
         }
-        gera.addNome("Carlinhos");
+        gera.addEntry("Yndaia", 1);
         for(int i = 0; i < 10; i++){
             System.out.println(GeradorCPF.geraCpf());
         }
-        FileManager.fileCreator("Arquivo");
-        FileManager.fileWriter("Arquivo", gera.getNome());
+        File test;
+        for(int i = 0; i < 10; i++){
+            test = new File("arquivo" + i + ".txt");
+            test.createNewFile();
+        }
     }
 }
