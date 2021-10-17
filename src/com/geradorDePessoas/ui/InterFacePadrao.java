@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static com.geradorDePessoas.geradores.GeradorJSON.geraJsonConta;
 import static com.geradorDePessoas.geradores.GeradorJSON.geraJsonPessoa;
