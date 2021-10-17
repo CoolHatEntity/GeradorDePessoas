@@ -1,30 +1,22 @@
 package com.geradorDePessoas.executavel;
 
-import com.geradorDePessoas.geradores.GeradorCPF;
-import com.geradorDePessoas.geradores.GeradorNome;
+import com.geradorDePessoas.geradores.GeradorJSON;
+import com.geradorDePessoas.geradores.obj.Conta;
+import com.geradorDePessoas.ui.InterFacePadrao;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.Random;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-	// write your code here
-        GeradorNome gera =  new GeradorNome();
-        String[] nome;
+    public static void main(String[] args) {
+        //Conta conta;
+        InterFacePadrao interFacePadrao = new InterFacePadrao("Programa");
 
+        /*Random rand = new Random();
         for(int i = 0; i < 10; i++){
-            nome = gera.geraNome();
-            System.out.println(nome[0] + " " + nome[1]);
-        }
-        gera.addEntry("Yndaia", 1);
-        for(int i = 0; i < 10; i++){
-            System.out.println(GeradorCPF.geraCpf());
-        }
-        File test;
-        for(int i = 0; i < 10; i++){
-            test = new File("arquivo" + i + ".txt");
-            test.createNewFile();
-        }
+            conta = new Conta();
+            System.out.println(GeradorJSON.geraJsonConta(conta));
+            System.out.println(GeradorJSON.geraJsonPessoa(conta.getCliente(), 2));
+        }*/
     }
 }

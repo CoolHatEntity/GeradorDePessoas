@@ -5,14 +5,11 @@ import com.geradorDePessoas.util.FileManager;
 import java.util.*;
 
 public class GeradorNome {
-    private List<String> nome;
-    private final List<String> sobrenome = new ArrayList<>();
+    private final List<String> nome;
+    private final List<String> sobrenome;
 
     public GeradorNome(){
-        if(getSobrenome().size() == 0){
-            addSobrenome(getTesteSobrenome());
-        }
-
+        sobrenome = getList("Sobrenomes");
         nome = getList("Nomes");
     }
 
